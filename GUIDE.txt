@@ -1,0 +1,608 @@
+╔══════════════════════════════════════════════════════════════╗
+║               PORTFOLIO LANDING PAGE - GUIA COMPLETA         ║
+║               React + Vite + TypeScript + Tailwind v4        ║
+╚══════════════════════════════════════════════════════════════╝
+
+PRERREQUISITO: Ya tenés el proyecto creado con:
+  pnpm create vite portfolio --template react-ts
+  cd portfolio
+  pnpm install
+
+══════════════════════════════════════════════════════════════════
+PASO 1 — Instalar dependencias
+══════════════════════════════════════════════════════════════════
+
+Ejecutá en la terminal (parado en /portfolio):
+
+  pnpm add -D tailwindcss @tailwindcss/vite
+  pnpm add @fontsource/jetbrains-mono
+
+┌────────────────────────────────────────────────────────────┐
+│ ¿Qué pasó?                                                 │
+│ pnpm add -D = dependencia de desarrollo (solo para         │
+│ construir el proyecto, no va al navegador final)           │
+│ tailwindcss + @tailwindcss/vite = Tailwind v4 con su      │
+│ plugin para Vite                                           │
+│ @fontsource/jetbrains-mono = la tipografía monospace       │
+│ técnica que se ve en tu imagen                            │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 2 — Configurar vite.config.ts
+══════════════════════════════════════════════════════════════════
+
+ABRÍ: vite.config.ts (en la raíz del proyecto)
+PEGÁ ESTO (reemplazando TODO el contenido):
+
+  import { defineConfig } from 'vite'
+  import react from '@vitejs/plugin-react'
+  import tailwindcss from '@tailwindcss/vite'
+
+  export default defineConfig({
+    plugins: [react(), tailwindcss()],
+  })
+
+┌────────────────────────────────────────────────────────────┐
+│ ¿Qué pasó?                                                 │
+│ Se importó el plugin tailwindcss y se agregó al array      │
+│ de plugins de Vite. Esto le dice a Vite "procesá todos    │
+│ los archivos CSS con Tailwind". Sin esto, Tailwind no      │
+│ funciona.                                                  │
+│                                                           │
+│ Si te dio ERROR: asegurate de haber ejecutado el PASO 1   │
+│ primero (pnpm add -D tailwindcss @tailwindcss/vite)        │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 3 — Limpiar archivos del template default
+══════════════════════════════════════════════════════════════════
+
+Ejecutá en la terminal:
+
+  rm src/App.css src/assets/hero.png src/assets/react.svg src/assets/vite.svg
+
+Esto borra los archivos de la plantilla de Vite que NO vamos a usar.
+
+Ahora ABRÍ src/App.tsx y src/index.css y BORRÁ TODO su contenido
+(dejalos vacíos por ahora, los vamos a llenar en pasos siguientes).
+
+┌────────────────────────────────────────────────────────────┐
+│ ¿Qué pasó?                                                 │
+│ La plantilla de Vite trae un contador de ejemplo con       │
+│ estilos, logos y un hero image. Todo eso lo borramos       │
+│ para arrancar de cero con NUESTRO diseño.                 │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 4 — Escribir src/index.css (estilos globales + Tailwind)
+══════════════════════════════════════════════════════════════════
+
+ABRÍ: src/index.css
+PEGÁ ESTO EXACTO (reemplaza todo):
+
+  @import "tailwindcss";
+
+  @theme {
+    --color-dark-950: #0a0a0a;
+    --color-dark-900: #121212;
+    --color-dark-800: #1a1a1a;
+    --color-dark-700: #2a2a2a;
+    --color-dark-600: #3a3a3a;
+    --color-neon-green: #39ff14;
+    --color-neon-cyan: #00ffff;
+    --color-muted-gray: #9ca3af;
+    --font-mono-tech: "JetBrains Mono", monospace;
+    --animate-blink: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  html {
+    font-family: var(--font-mono-tech);
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-dark-900);
+    color: var(--color-muted-gray);
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    min-height: 100vh;
+  }
+
+┌────────────────────────────────────────────────────────────┐
+│ ¿Qué es cada cosa?                                         │
+│                                                           │
+│ @import "tailwindcss"  ->  activa Tailwind v4             │
+│                                                           │
+│ @theme { ... }  ->  define colores y fuentes personalizados│
+│   que después usás como bg-dark-900, text-neon-green, etc.│
+│   (los nombres --color-xxx se convierten en clases        │
+│   bg-xxx, text-xxx, border-xxx automáticamente)          │
+│                                                           │
+│ --animate-blink  ->  animación personalizada para el       │
+│   cursor parpadeante del Hero. La usás como "animate-blink"│
+│                                                           │
+│ background-image con linear-gradient  ->  crea el efecto   │
+│   de cuadrícula tipo blueprint/planos técnicos sin        │
+│   ninguna imagen externa. Son 2 capas de líneas           │
+│   semitransparentes (horizontal y vertical) formando       │
+│   una grilla de 40x40px.                                 │
+│                                                           │
+│ background-size: 40px 40px  ->  tamaño de cada celda      │
+│   de la grilla                                            │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 5 — Importar la fuente en main.tsx
+══════════════════════════════════════════════════════════════════
+
+ABRÍ: src/main.tsx (YA existe, no lo borres)
+Editá para que QUEDE ASÍ:
+
+  import { StrictMode } from 'react'
+  import { createRoot } from 'react-dom/client'
+  import '@fontsource/jetbrains-mono'
+  import './index.css'
+  import App from './App.tsx'
+
+  createRoot(document.getElementById('root')!).render(
+    <StrictMode>
+      <App />
+    </StrictMode>,
+  )
+
+┌────────────────────────────────────────────────────────────┐
+│ ¿Qué cambió?                                               │
+│ Se agregó import '@fontsource/jetbrains-mono'             │
+│ Esto carga la tipografía JetBrains Mono en el proyecto.   │
+│ Se importa desde JavaScript (no desde CSS) porque es       │
+│ más confiable con Vite.                                    │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 6 — Crear src/components/Navbar.tsx
+══════════════════════════════════════════════════════════════════
+
+ABRÍ: src/components/navbar.tsx (YA existe, está vacío)
+PEGÁ ESTO:
+
+  const Navbar = () => {
+    const links = ["HOME", "PROJECTS", "BLOG", "ABOUT", "CONTACT"]
+
+    return (
+      <nav className="flex items-center justify-between px-6 py-4 border-b border-dark-700">
+        <span className="text-neon-green text-xl font-bold tracking-wider">
+          &gt;_
+        </span>
+        <ul className="flex gap-6">
+          {links.map((link) => (
+            <li key={link}>
+              <a
+                href="#"
+                className="text-muted-gray hover:text-white transition-colors duration-200 text-sm tracking-widest"
+              >
+                {link}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+
+  export default Navbar
+
+┌────────────────────────────────────────────────────────────┐
+│ Concepto React #1: COMPONENTE FUNCIONAL                    │
+│                                                           │
+│ const Navbar = () => { ... }  ->  es un componente de      │
+│ React. Un componente es una función que devuelve JSX      │
+│ (HTML escrito dentro de JavaScript).                      │
+│                                                           │
+│ Concepto React #2: RENDERIZADO DE LISTAS (.map())         │
+│                                                           │
+│ {links.map((link) => (...))}  ->  recorre el array         │
+│ ["HOME","PROJECTS",...] y por cada elemento genera un     │
+│ <li> con un <a>. La prop key={link} es obligatoria en     │
+│ React para que sepa identificar cada elemento único.      │
+│                                                           │
+│ Concepto React #3: className                             │
+│                                                           │
+│ En React usás className en vez de class (porque class     │
+│ es palabra reservada de JavaScript).                      │
+│                                                           │
+│ Concepto React #4: export default                         │
+│                                                           │
+│ Exporta el componente para poder importarlo desde App.tsx │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 7 — Crear src/components/Hero.tsx
+══════════════════════════════════════════════════════════════════
+
+ABRÍ: src/components/hero.tsx (YA existe, está vacío)
+PEGÁ ESTO:
+
+  const Hero = () => {
+    return (
+      <section className="flex flex-col items-center justify-center py-24 px-4 text-center">
+        <p className="text-neon-green text-sm mb-2 tracking-widest">
+          [ SYSTEM: ONLINE ]
+        </p>
+        <h1 className="text-5xl md:text-7xl font-bold text-white uppercase tracking-widest mb-4">
+          kniazyouk
+        </h1>
+        <p className="text-muted-gray text-lg mb-8">
+          &gt; Fullstack Developer ready for deployment
+          <span className="inline-block w-3 h-5 bg-neon-green ml-1 animate-blink align-middle" />
+        </p>
+      </section>
+    )
+  }
+
+  export default Hero
+
+┌────────────────────────────────────────────────────────────┐
+│ Concepto React #5: JSX (JavaScript XML)                    │
+│                                                           │
+│ JSX parece HTML pero es JavaScript. Podés mezclar         │
+│ etiquetas HTML con expresiones JS entre {}.               │
+│                                                           │
+│ &gt; -> se convierte en >  (el HTML entity)               │
+│                                                           │
+│ animate-blink -> es la animación que definimos en          │
+│ index.css con @keyframes blink. Hace parpadear el         │
+│ cursor tipo terminal.                                     │
+│                                                           │
+│ md:text-7xl -> Tailwind responsive: text-7xl en pantallas  │
+│ medianas (md) para arriba, text-5xl en mobile            │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 8 — Crear src/components/SkillCard.tsx
+══════════════════════════════════════════════════════════════════
+
+CREÁ: src/components/SkillCard.tsx (no existe, crealo)
+PEGÁ ESTO:
+
+  interface SkillCardProps {
+    number: string
+    tag: string
+    tagColor: "green" | "gray" | "cyan"
+    icon: React.ReactNode
+    title: string
+    keywords: string[]
+    cta: string
+    ctaLink: string
+  }
+
+  const colorConfig = {
+    green: { text: "text-neon-green", border: "border-neon-green", glow: "#39ff14" },
+    gray: { text: "text-muted-gray", border: "border-muted-gray", glow: "#9ca3af" },
+    cyan: { text: "text-neon-cyan", border: "border-neon-cyan", glow: "#00ffff" },
+  }
+
+  const SkillCard = ({
+    number,
+    tag,
+    tagColor,
+    icon,
+    title,
+    keywords,
+    cta,
+    ctaLink,
+  }: SkillCardProps) => {
+    const colors = colorConfig[tagColor]
+
+    return (
+      <div className="bg-dark-800 border border-dark-700 rounded-xl p-6 flex flex-col gap-4 hover:border-dark-600 transition-all duration-300">
+        <div className="flex items-center gap-2 mb-2">
+          <span
+            className={`text-sm font-bold px-3 py-1 rounded-md ${colors.text}`}
+            style={{
+              textShadow: `0 0 8px ${colors.glow}`,
+              boxShadow: `0 0 12px ${colors.glow}30`,
+            }}
+          >
+            {number} / {tag}
+          </span>
+        </div>
+
+        <div className="h-16 flex items-center justify-center text-4xl">
+          {icon}
+        </div>
+
+        <h3 className="text-white font-bold text-lg uppercase tracking-wide leading-tight">
+          {title}
+        </h3>
+
+        <div className="flex flex-wrap gap-2">
+          {keywords.map((kw) => (
+            <span
+              key={kw}
+              className="text-muted-gray text-xs border border-dark-700 px-2 py-1 rounded"
+            >
+              {kw}
+            </span>
+          ))}
+        </div>
+
+        <a
+          href={ctaLink}
+          className={`${colors.text} hover:text-white transition-colors duration-200 text-sm mt-auto tracking-wider`}
+        >
+          {cta} &gt;
+        </a>
+      </div>
+    )
+  }
+
+  export default SkillCard
+
+┌────────────────────────────────────────────────────────────┐
+│ Concepto React #6: PROPS + TIPADO TypeScript               │
+│                                                           │
+│ interface SkillCardProps { ... }  ->  define la forma      │
+│ que tienen las props que recibe el componente.            │
+│ TypeScript verifica que le pasés los datos correctos.     │
+│                                                           │
+│ const SkillCard = ({ number, tag, tagColor, ... }:        │
+│   SkillCardProps) => { ... }                              │
+│ -> destructuración de props: saca cada prop directamente   │
+│   como variable en vez de escribir props.number cada vez  │
+│                                                           │
+│ tagColor: "green" | "gray" | "cyan"  ->  union type:      │
+│   solo acepta esos 3 valores exactos                     │
+│                                                           │
+│ icon: React.ReactNode  ->  puede recibir cualquier cosa    │
+│   que React pueda renderizar (JSX, strings, etc.)        │
+│                                                           │
+│ keywords: string[]  ->  array de strings                  │
+│                                                           │
+│ Concepto React #7: RENDERIZADO CONDICIONAL                │
+│                                                           │
+│ const colors = colorConfig[tagColor]  ->  según el valor  │
+│ de tagColor, elige un set de colores distinto. Así el     │
+│ mismo componente se ve verde, gris o cyan según la prop. │
+│                                                           │
+│ Concepto React #8: INLINE STYLES                          │
+│                                                           │
+│ style={{ textShadow: `...`, boxShadow: `...` }}          │
+│ -> los estilos inline en React se pasan como objeto        │
+│   JS con camelCase (textShadow en vez de text-shadow)    │
+│   y strings entre backticks para usar variables.         │
+│                                                           │
+│ Concepto React #9: TEMPLATE LITERALS (``)                │
+│                                                           │
+│ className={`${colors.text} hover:text-white ...`}        │
+│ -> las backticks ` permiten interpolar variables con      │
+│   ${variable} dentro de un string.                       │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 9 — Crear los iconos SVG
+══════════════════════════════════════════════════════════════════
+
+CREÁ: src/components/Icons.tsx (no existe, crealo)
+PEGÁ ESTO:
+
+  export const DesignIcon = () => (
+    <svg viewBox="0 0 64 64" fill="none" className="w-14 h-14">
+      <rect x="4" y="4" width="56" height="56" rx="6" stroke="#39ff14" strokeWidth="1.5" opacity="0.4" />
+      <line x1="20" y1="4" x2="20" y2="60" stroke="#39ff14" strokeWidth="1" opacity="0.3" />
+      <line x1="36" y1="4" x2="36" y2="60" stroke="#39ff14" strokeWidth="1" opacity="0.3" />
+      <line x1="4" y1="20" x2="60" y2="20" stroke="#39ff14" strokeWidth="1" opacity="0.3" />
+      <line x1="4" y1="36" x2="60" y2="36" stroke="#39ff14" strokeWidth="1" opacity="0.3" />
+      <line x1="4" y1="52" x2="60" y2="52" stroke="#39ff14" strokeWidth="1" opacity="0.3" />
+      <path d="M24 24 L30 30 M24 30 L27 27" stroke="#39ff14" strokeWidth="2" strokeLinecap="round" />
+      <path d="M40 42 L48 34 L50 36 L42 44 Z" fill="#39ff14" fillOpacity="0.15" stroke="#39ff14" strokeWidth="1.5" />
+      <circle cx="44" cy="38" r="1.5" fill="#39ff14" />
+    </svg>
+  )
+
+  export const CuriosityIcon = () => (
+    <svg viewBox="0 0 64 64" fill="none" className="w-14 h-14">
+      <circle cx="32" cy="24" r="10" stroke="#9ca3af" strokeWidth="1.5" />
+      <path d="M28 24 L36 24" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M32 20 L32 28" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="16" cy="46" r="6" stroke="#9ca3af" strokeWidth="1.5" />
+      <circle cx="48" cy="46" r="6" stroke="#9ca3af" strokeWidth="1.5" />
+      <path d="M22 44 L28 40" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M42 44 L36 40" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M22 48 L28 52" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M32 38 Q36 34 40 38" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="32" cy="50" r="2" fill="#9ca3af" />
+    </svg>
+  )
+
+  export const CodeIcon = () => (
+    <svg viewBox="0 0 64 64" fill="none" className="w-14 h-14">
+      <rect x="6" y="12" width="52" height="40" rx="4" stroke="#00ffff" strokeWidth="1.5" opacity="0.4" />
+      <circle cx="14" cy="20" r="1.5" fill="#00ffff" opacity="0.6" />
+      <circle cx="19" cy="20" r="1.5" fill="#00ffff" opacity="0.6" />
+      <circle cx="24" cy="20" r="1.5" fill="#00ffff" opacity="0.6" />
+      <text x="14" y="38" fill="#00ffff" fontSize="10" fontFamily="monospace" opacity="0.8">{'>'}_</text>
+      <text x="14" y="48" fill="#00ffff" fontSize="10" fontFamily="monospace" opacity="0.5">&lt;/&gt;</text>
+      <line x1="38" y1="18" x2="54" y2="18" stroke="#00ffff" strokeWidth="1" opacity="0.3" />
+      <line x1="38" y1="24" x2="50" y2="24" stroke="#00ffff" strokeWidth="1" opacity="0.2" />
+      <line x1="38" y1="30" x2="52" y2="30" stroke="#00ffff" strokeWidth="1" opacity="0.15" />
+      <line x1="38" y1="36" x2="46" y2="36" stroke="#00ffff" strokeWidth="1" opacity="0.1" />
+    </svg>
+  )
+
+┌────────────────────────────────────────────────────────────┐
+│ Concepto React #10: COMPONENTES DE SOLO RENDER            │
+│                                                           │
+│ Estos componentes no tienen estado, solo devuelven SVG.   │
+│ Son componentes "tontos" (presentacionales).             │
+│ Se exportan con nombre (export const, no export default)  │
+│ para importarlos con { DesignIcon } en vez de import      │
+│ DesignIcon.                                               │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 10 — Crear src/components/Footer.tsx
+══════════════════════════════════════════════════════════════════
+
+ABRÍ: src/components/footer.tsx (YA existe, está vacío)
+PEGÁ ESTO:
+
+  const Footer = () => {
+    return (
+      <footer className="flex flex-col md:flex-row items-center justify-between px-6 py-4 border-t border-dark-700 text-xs text-muted-gray mt-16">
+        <p>
+          &copy; 2024 kniazyouk // TERMINAL[&gt;_]
+        </p>
+        <p className="text-neon-green mt-2 md:mt-0">
+          OCT 26 14:32 PST
+        </p>
+      </footer>
+    )
+  }
+
+  export default Footer
+
+┌────────────────────────────────────────────────────────────┐
+│ Concepto React #11: FRAGMENTO IMPLÍCITO                   │
+│                                                           │
+│ El footer tiene dos hijos (<p> y <p>) que comparten un    │
+│ padre <footer>. No necesita <></> (fragmento) porque      │
+│ <footer> ya es el wrapper.                                │
+│                                                           │
+│ md:flex-row -> en desktop los elementos están en fila,    │
+│ en mobile en columna (flex-col por defecto)              │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 11 — Armar todo en src/App.tsx
+══════════════════════════════════════════════════════════════════
+
+ABRÍ: src/App.tsx (YA existe, reemplazá TODO su contenido)
+PEGÁ ESTO:
+
+  import Navbar from './components/navbar'
+  import Hero from './components/hero'
+  import SkillCard from './components/SkillCard'
+  import Footer from './components/footer'
+  import { DesignIcon, CuriosityIcon, CodeIcon } from './components/Icons'
+
+  function App() {
+    return (
+      <>
+        <Navbar />
+
+        <Hero />
+
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-4 max-w-6xl mx-auto pb-16">
+          <SkillCard
+            number="01"
+            tag="DESIGN"
+            tagColor="green"
+            icon={<DesignIcon />}
+            title="CRAFTING FUNCTIONAL INTERFACES"
+            keywords={["USER EXPERIENCE", "UI DESIGN", "TYPOGRAPHY", "WIREFRAMING"]}
+            cta="VIEW PORTFOLIO"
+            ctaLink="#"
+          />
+          <SkillCard
+            number="02"
+            tag="PROBLEM-SOLVING & CURIOSITY"
+            tagColor="gray"
+            icon={<CuriosityIcon />}
+            title="TACKLING COMPLEX CHALLENGES"
+            keywords={["ANALYSIS", "STRATEGY", "INNOVATION", "RESEARCH"]}
+            cta="OUR PROCESS"
+            ctaLink="#"
+          />
+          <SkillCard
+            number="03"
+            tag="CODING & HACKING"
+            tagColor="cyan"
+            icon={<CodeIcon />}
+            title="BUILDING SECURE APPLICATIONS"
+            keywords={["FRONTEND", "BACKEND", "SECURITY", "SCRIPTS"]}
+            cta="VIEW GITHUB"
+            ctaLink="#"
+          />
+        </section>
+
+        <Footer />
+      </>
+    )
+  }
+
+  export default App
+
+┌────────────────────────────────────────────────────────────┐
+│ Concepto React #12: COMPOSICIÓN DE COMPONENTES            │
+│                                                           │
+│ App() es el componente RAÍZ. No tiene HTML propio,        │
+│ solo ORGANIZA otros componentes.                          │
+│                                                           │
+│ <> ... </>  ->  Fragmento de React. Sirve para agrupar     │
+│ múltiples componentes sin agregar un <div> extra al DOM. │
+│                                                           │
+│ Cada <SkillCard /> recibe 7 props distintas. Así React   │
+│ sabe qué renderizar en cada card.                        │
+│                                                           │
+│ grid grid-cols-1 md:grid-cols-3  ->  en mobile 1 columna, │
+│ en desktop 3 columnas (Tailwind responsive)              │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+PASO 12 — Probar
+══════════════════════════════════════════════════════════════════
+
+En la terminal (parado en /portfolio):
+
+  pnpm run dev
+
+Vas a ver algo como:
+  VITE v6.x.x  ready in XXX ms
+  ➜  Local:   http://localhost:5173/
+
+Abrí http://localhost:5173 en el navegador.
+
+┌────────────────────────────────────────────────────────────┐
+│ Si ves la página con el fondo oscuro, la grilla, el       │
+│ navbar, el hero con cursor parpadeante, las 3 cards con   │
+│ iconos y el footer -> ¡LO LOGRASTE!                        │
+│                                                           │
+│ ERRORES COMUNES Y SOLUCIÓN:                               │
+│                                                           │
+│ "Module not found" -> revisá que los imports coincidan     │
+│   con los nombres de archivo (mayúsculas, rutas)          │
+│                                                           │
+│ "tailwindcss not found" -> volvé a ejecutar el paso 1     │
+│                                                           │
+│ La página se ve blanca -> el navegador tiene cache,        │
+│   hace Ctrl+F5 o abrí en incógnito                       │
+│                                                           │
+│ Los colores no se ven -> revisá que los nombres en         │
+│   @theme coincidan con los que usás en className         │
+└────────────────────────────────────────────────────────────┘
+
+══════════════════════════════════════════════════════════════════
+RESUMEN DE CONCEPTOS DE REACT QUE APRENDISTE
+══════════════════════════════════════════════════════════════════
+
+  #1  Componente funcional             -> Navbar, Hero, etc.
+  #2  Renderizado de listas (.map())   -> links del navbar
+  #3  className (vs class en HTML)     -> en todos lados
+  #4  export default / import          -> pasar componentes entre archivos
+  #5  JSX (mezclar HTML y JS)          -> { } para expresiones
+  #6  Props + TypeScript interfaces    -> SkillCard
+  #7  Renderizado condicional          -> colorConfig según tagColor
+  #8  Inline styles ({...})            -> textShadow, boxShadow
+  #9  Template literals (`${}`)        -> className dinámico
+  #10 Componentes presentacionales     -> Icons.tsx (solo SVG)
+  #11 Fragmentos (<></>)               -> agrupar sin div extra
+  #12 Composición de componentes       -> App.tsx como orquestador
+
+══════════════════════════════════════════════════════════════════
