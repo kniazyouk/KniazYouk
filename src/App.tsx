@@ -1,4 +1,3 @@
-// import { useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -8,7 +7,7 @@ import Footer from './components/Footer'
 
 import { FaWindows, FaLinux, FaPhp, FaLaravel, FaCss3, FaBootstrap, FaHtml5, FaJsSquare, FaPython, FaReact, FaWifi, FaServer, FaLaptop, FaKeyboard, FaMouse, FaGamepad, FaMusic, FaHandsHelping, FaInfoCircle } from 'react-icons/fa'
 
-import { SiTypescript, SiVite, SiTailwindcss, SiSketchup, SiDotnet, SiApache, SiGit, SiGithub, SiDocker, SiVirtualbox, SiVmware, SiPandas, SiNumpy, SiTensorflow, SiPytorch, SiPostgresql, SiMysql, SiMongodb, SiIntel, SiAmd,   SiKalilinux, SiMetasploit, SiHashcat, SiWireshark } from 'react-icons/si'
+import { SiTypescript, SiVite, SiTailwindcss, SiSketchup, SiDotnet, SiApache, SiGit, SiGithub, SiDocker, SiVirtualbox, SiVmware, SiPandas,  SiPostgresql, SiMysql, SiMongodb, SiIntel, SiAmd,   SiKalilinux, SiMetasploit, SiHashcat, SiWireshark } from 'react-icons/si'
 
 import { DiPhotoshop, DiIllustrator } from 'react-icons/di'
 import { TbBrandAdobeIndesign } from 'react-icons/tb'
