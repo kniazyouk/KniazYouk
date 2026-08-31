@@ -7,7 +7,7 @@ import Footer from './components/Footer'
 
 import { FaWindows, FaLinux, FaPhp, FaLaravel, FaCss3, FaBootstrap, FaHtml5, FaJsSquare, FaPython, FaReact, FaWifi, FaServer, FaLaptop, FaKeyboard, FaMouse, FaGamepad, FaMusic, FaHandsHelping, FaInfoCircle } from 'react-icons/fa'
 
-import { SiTypescript, SiVite, SiTailwindcss, SiSketchup, SiDotnet, SiApache, SiGit, SiGithub, SiDocker, SiVirtualbox, SiVmware, SiPandas,  SiPostgresql, SiMysql, SiMongodb, SiIntel, SiAmd,   SiKalilinux, SiMetasploit, SiHashcat, SiWireshark } from 'react-icons/si'
+import { SiTypescript, SiVite, SiTailwindcss, SiSketchup, SiDotnet, SiApache, SiGit, SiGithub, SiDocker, SiVirtualbox, SiVmware, SiPandas,  SiPostgresql, SiMysql, SiMongodb, SiIntel, SiAmd,   SiKalilinux, SiMetasploit, SiHashcat, SiWireshark, SiTailscale } from 'react-icons/si'
 
 import { DiPhotoshop, DiIllustrator } from 'react-icons/di'
 import { TbBrandAdobeIndesign } from 'react-icons/tb'
@@ -42,7 +42,7 @@ function App() {
                {name: "C#", icon: <SiDotnet />},
              ]}
             cta="Check Out Code Repositories"
-            ctalink="/code"
+            ctalink="https://github.com/kniazyouk?tab=repositories"
          />
          <SkillCard
             number="02"
@@ -59,9 +59,10 @@ function App() {
                {name: "SiDocker", icon: <SiDocker />},
                {name: "SiVirtualbox", icon: <SiVirtualbox />},
                {name: "SiVmware", icon: <SiVmware />},
+               {name: "SiTailscale", icon: <SiTailscale />},
              ]}
-            cta="View Design Work"
-            ctalink="/design"
+            cta=""
+            ctalink="#"
          />
          <SkillCard
             number="03"
@@ -79,8 +80,8 @@ function App() {
                // {name: "SiTensorflow", icon: <SiTensorflow />},
                // {name: "SiPytorch", icon: <SiPytorch />},
              ]}
-            cta="Explore Curiosity Projects"
-            ctalink="/curiosity"
+            cta="Explore Data Science Projects"
+            ctalink="/data-science"
          />
          <SkillCard
             number="04"
@@ -98,8 +99,8 @@ function App() {
                {name: "SiAmd", icon: <SiAmd />},
 
              ]}
-            cta="Check Out Code Repositories"
-            ctalink="/code"
+            cta=""
+            ctalink="#"
          />
          <SkillCard
             number="05"
@@ -114,7 +115,7 @@ function App() {
                {name: "TbBrandAdobeIndesign ", icon: <TbBrandAdobeIndesign />},
              ]}
             cta="View Design Work"
-            ctalink="/design"
+            ctalink="#"
          />
          <SkillCard
             number="06"
@@ -140,14 +141,11 @@ function App() {
                {name: "MaltegoIcon", icon: <MaltegoIcon />},
                {name: "WazuhIcon", icon: <WazuhIcon />},
             ]}
-            cta="Explore Curiosity Projects"
+            cta="Explore Tools"
             ctalink="/curiosity"
          />
-
       </section>
-      <Footer />
-
-      
+      <Footer />      
     </>
   )
 }

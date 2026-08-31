@@ -1,5 +1,5 @@
 const Navbar = () => {
-  const links = ["HOME", "PROJECTS", "ABOUT", "CONTACT"];
+  const links = [ "PROJECTS", "ABOUT", "CONTACT"];
 
    return (
     <nav className="flex items-center justify-between px-6 py-4 border-b border-dark-700">
