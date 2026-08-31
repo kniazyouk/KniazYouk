@@ -1,5 +1,5 @@
 <p align="center" width="300">
-   <!-- TODO: Reemplaza este placeholder con tu foto en ASCII real -->
+   <!-- TODO: Piture in ASCII  -->
    <pre align="center">
    ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
    ██████████████████████████████████████
@@ -21,9 +21,11 @@
    <a href="https://github.com/kniazyouk" target="blank">
       <img src="https://img.shields.io/badge/GitHub-kniazyouk-000000?style=for-the-badge&logo=github&logoColor=white&labelColor=101010" alt="GitHub de kniazyouk" />
    </a>
+    &nbsp;&nbsp;&nbsp; 
    <a href="https://www.linkedin.com/in/TU_USUARIO_LINKEDIN" target="blank">
       <img src="https://img.shields.io/badge/LinkedIn-kniazyouk-0077B5?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=101010" alt="LinkedIn de kniazyouk" />
    </a>
+    &nbsp;&nbsp;&nbsp;
    <a href="mailto:kniazyouk@gmail.com" target="blank">
       <img src="https://img.shields.io/badge/Email-kniazyouk%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white&labelColor=101010" alt="Email de kniazyouk" />
    </a>
